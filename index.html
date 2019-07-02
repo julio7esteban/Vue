@@ -9,6 +9,17 @@
   <input type="text" name="nombre" placeholder="Ingresa tu nombre"
   v-model="nombre">
   <p>TU nombre en mayuscula es: {{nombre | uppercase}}</p>
+  <form @submit.prevent="submit" action="" method="GET">
+      <h2>Cuales son tus cursos favoritos?
+          <input v-model="cursos" type="checkbox" id="vue" value="vue">
+          <label  for="vue">Curso de Vue.js</label> 
+          <input v-model="cursos" type="checkbox" id="react" value="react">
+          <label  for="react">Curso de React.js</label> 
+          <input v-model="cursos" type="checkbox" id="seo" value="seo">
+          <label  for="seo">Curso de Seo.js</label> 
+          <button type="submit">Enviar</button>
+      </h2>
+  </form>
 
 </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -17,12 +28,20 @@
 let app= new Vue({
     el:'#app',
     data:{
-      nombre:''
+      nombre:'',
+      cursos:''
     
     },filters:{
         uppercase: function(str){
             return str.toUpperCase()
         }
+
+        }
+        ,methods:{
+            submit: function(){
+               console.log("Se ejecuta el metodo submite")
+               console.log(this.cursos) 
+            }
 
     }
 })
