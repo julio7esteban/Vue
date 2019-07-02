@@ -6,14 +6,10 @@
    
 </head>
 <body><div id="app">
+    <button v-on:click="Sumar" >Sumar 1</button>
+    <button v-on:click="Restar">Restar 1</button>
    
-        <h1 >
-                {{titulo1 | uppercase}}
-            </h1>
-            <h2 >
-                {{Subtitulo | lowercase}}
-            </h2>
-   
+      El contador esta en {{contador}}
     
 </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -22,16 +18,14 @@
 let app= new Vue({
     el:'#app',
     data:{
-       titulo1:'Estas en Platzi',
-       Subtitulo:'Es el curso de vue'
-    },filters:{
-        uppercase: function(str ){
-          return str.toUpperCase(); 
+      contador: 0
+    },methods:{
+        Sumar:function(){
+            this.contador++
 
         },
-        lowercase: function(str){
-            return str.toLowerCase();
-
+        Restar: function(){
+          this.contador--
         }
     }
 })
