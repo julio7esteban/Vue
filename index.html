@@ -13,8 +13,11 @@
          
       </h2>
        <template v-for="curso in cursos">
-            <input v-model="cursosSelecciona" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
-            <label  v-bind:for="curso.value">{{curso.nombre}}</label>
+           <curso v-bind:curso="curso" v-on:checked="selectcurso" >
+
+           </curso>
+        
+         
        </template>
        
       
@@ -24,7 +27,23 @@
 </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type ="text/javascript">
+Vue.component('curso',{
+    props:['curso',
+    ],
+    methods:{
+    onchange: function(ev){
+        this.$emit('checked',this.curso.value,ev.target.checked)
 
+    }
+    },
+    template:`
+    <div>
+    <input  type="checkbox" 
+    v-bind:id="curso.value" v-bind:value="curso.value" @change="onchange">
+            <label  v-bind:for="curso.value">{{curso.nombre}}</label>
+    </div>
+    `
+})
 let app= new Vue({
     el:'#app',
     data:{
@@ -36,13 +55,21 @@ let app= new Vue({
          }, {nombre:'Curso de Introduccion a React.js',
          value:'react'
          }],
-      cursosSelecciona:[ ]
+         cursosSelecccionados:[ ]
     
     },methods:{
             submit: function(){
                console.log("Se ejecuta el metodo submite")
-               console.log(this.cursosSelecciona) 
-            }
+               console.log(this.cursosSelecccionados) 
+            },selectcurso: function(curso,checked){
+        if(checked){
+            this.cursosSelecccionados.push(curso)
+        }else{
+            let index = this.cursosSelecccionados.indexOf(curso)
+            this.cursosSelecccionados.splice(index,1)
+        }
+
+    }
 
     }
 })
